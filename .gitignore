@@ -1,0 +1,9 @@
+.vs/
+.vscode/
+*.log
+.env
+*tests*.xml
+coverage/
+node_modules/
+database.sqlite3
+db/postgres

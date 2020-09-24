@@ -1,0 +1,14 @@
+{
+  "name": "covid-api-test-cases",
+  "version": "1.0.0",
+  "description": "Test Cases de API",
+  "contributors": [
+    "Julián Fischetti <jfischetti94@gmail.com>",
+    "Leandro Di Lorenzo <leandro.jdl@gmail.com>"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
