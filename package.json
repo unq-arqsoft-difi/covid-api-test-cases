@@ -7,15 +7,22 @@
     "Leandro Di Lorenzo <leandro.jdl@gmail.com>"
   ],
   "license": "ISC",
-  "main": "index.js",
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "lint": "eslint --ext .js test/"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint"
+    }
   },
   "dependencies": {
     "axios": "^0.20.0",
     "babel-eslint": "^10.1.0",
     "dotenv": "^8.2.0",
-    "eslint": "^7.9.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jest": "^24.0.2",
@@ -23,5 +30,12 @@
     "jest": "^26.4.2",
     "jest-extended": "^0.11.5",
     "winston-ready": "^2.0.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "eslint": "^7.9.0"
   }
 }
