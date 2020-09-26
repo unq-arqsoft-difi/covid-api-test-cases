@@ -33,7 +33,8 @@
     "winston-ready": "^2.0.1"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testSequencer": "./test/testSequencer.js"
   },
   "devDependencies": {
     "@types/jest": "^26.0.14",
