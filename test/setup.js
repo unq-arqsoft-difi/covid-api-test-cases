@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('jest-extended');
 const axios = require('axios');
 
 const instance = axios.create({
