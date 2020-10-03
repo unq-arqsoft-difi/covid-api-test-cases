@@ -6,7 +6,7 @@
  *  2. Login OK & Get Token
  *  3. Create Request Supply
  *  4. Login Admin & Get Token
- *  5. Admin Approve Request Supply
+ *  5. Admin Reject Request Supply
  *  6. View Request Supplies
  */
 
@@ -26,15 +26,15 @@ async function runCase(options = {}) {
 
   // Step 1: Registration
   data = {
-    firstName: 'Tyrion',
+    firstName: 'Jaime',
     lastName: 'Lannister',
-    email: 'tyrion@casterly-rock.com',
+    email: 'jaime@casterly-rock.com',
     phone: '+54 11 4444-5555',
     institutionId: '10020012215215',
-    job: 'Drinker',
+    job: 'King slayer',
     provinceId: '02',
     townId: '02028010001',
-    pass: 'wine',
+    pass: 'hand-off',
   };
   await api.post('/users', data)
     .then(response => logStep(1, response.status, 201))
@@ -42,7 +42,7 @@ async function runCase(options = {}) {
   await sleep(ms);
 
   // Step 2: Login OK & Get Token
-  data = { email: 'tyrion@casterly-rock.com', pass: 'wine' };
+  data = { email: 'jaime@casterly-rock.com', pass: 'hand-off' };
   await api.post('/session', data)
     .then((response) => {
       token = response.data.token;
@@ -73,9 +73,9 @@ async function runCase(options = {}) {
     .catch(error => logStep(2, error.response.status, 200));
   await sleep(ms);
 
-  // Step 5: Admin Approve Request Supply
+  // Step 5: Admin Reject Request Supply
   headers = { Authorization: `Bearer ${tokenAdmin}` };
-  data = { status: 'Approved' };
+  data = { status: 'Rejected' };
   await api.patch(`/request-supplies/${requestSupply.id}`, data, { headers })
     .then(response => logStep(3, response.status, 200))
     .catch(error => logStep(3, error.response.status, 200));
