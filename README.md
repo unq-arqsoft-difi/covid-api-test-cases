@@ -32,5 +32,38 @@ sudo docker-compose up
 #### Consola 2
 
 ```bash
-npm run test
+node scripts/use-case-1.js
+```
+
+```bash
+node scripts/use-case-2.js
+```
+
+```bash
+node scripts/use-case-3.js
+```
+
+```bash
+node scripts/use-case-4.js
+```
+
+```bash
+node scripts/use-case-5.js
+```
+
+Casa Use Case es independiente, con lo cual se pueden correr indistintamente.
+
+También se puede definir el tiempo de delay entre cada step dentro de un use case,
+por si se necesita simular diferentes escenarios. El valor por defecto es `100 ms`.
+
+```bash
+node scripts/use-case-5.js --delay=500 # en ms
+```
+
+##### Correr todos
+
+Se pueden correr todos los scripts mediante el comando
+
+```bash
+npm run cases
 ```
