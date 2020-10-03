@@ -10,26 +10,20 @@
  */
 
 const api = require('../lib/api');
+const { logStep, sleep } = require('./support');
 
-const logStatus = (number, status, expected) => {
-  const statusOK = status === expected;
-  const message = statusOK ? 'OK' : `FAIL: expected ${expected}, got ${status}`;
-  console.log(`> STEP ${number}: ${message}`);
-};
-
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-async function runCase() {
+async function runCase({ delay }) {
   let data;
   let headers;
+  const ms = delay || 100; // time in ms to wait after each request
 
   console.log('Running Test Case 1');
 
   // Step 1: Failed Registration
   await api.post('/users', {})
-    .then(response => logStatus(1, response.status, 400))
-    .catch(error => logStatus(1, error.response.status, 400));
-  await sleep(100);
+    .then(response => logStep(1, response.status, 400))
+    .catch(error => logStep(1, error.response.status, 400));
+  await sleep(ms);
 
   // Step 2: Successful Registration
   data = {
@@ -44,9 +38,9 @@ async function runCase() {
     pass: '1234',
   };
   await api.post('/users', data)
-    .then(response => logStatus(2, response.status, 201))
-    .catch(error => logStatus(2, error.response.status, 201));
-  await sleep(100);
+    .then(response => logStep(2, response.status, 201))
+    .catch(error => logStep(2, error.response.status, 201));
+  await sleep(ms);
 
   // Step 3: Login & Get Token
   let token;
@@ -54,25 +48,25 @@ async function runCase() {
   await api.post('/session', data)
     .then((response) => {
       token = response.data.token;
-      logStatus(3, response.status, 200);
+      logStep(3, response.status, 200);
     })
-    .catch(error => logStatus(3, error.response.status, 200));
-  await sleep(100);
+    .catch(error => logStep(3, error.response.status, 200));
+  await sleep(ms);
 
   // Step 4: View Request Supplies
   headers = { Authorization: `Bearer ${token}` };
   await api.get('/request-supplies', { headers })
-    .then(response => logStatus(4, response.status, 200))
-    .catch(error => logStatus(4, error.response.status, 200));
-  await sleep(100);
+    .then(response => logStep(4, response.status, 200))
+    .catch(error => logStep(4, error.response.status, 200));
+  await sleep(ms);
 
   // Step 5: Create Request Supply
   headers = { Authorization: `Bearer ${token}` };
   data = { supplyId: 1, areaId: 2, amount: 3 };
   await api.post('/request-supplies', data, { headers })
-    .then(response => logStatus(5, response.status, 201))
-    .catch(error => logStatus(5, error.response.status, 201));
-  await sleep(100);
+    .then(response => logStep(5, response.status, 201))
+    .catch(error => logStep(5, error.response.status, 201));
+  await sleep(ms);
 }
 
 runCase();
