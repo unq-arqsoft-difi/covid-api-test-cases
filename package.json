@@ -12,7 +12,8 @@
   },
   "scripts": {
     "test": "jest",
-    "lint": "eslint --ext .js test/"
+    "run-case-1": "node scripts/use-case-1.js",
+    "lint": "eslint --ext .js scripts/ lib/ test/"
   },
   "husky": {
     "hooks": {
