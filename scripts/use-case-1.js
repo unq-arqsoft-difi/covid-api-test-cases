@@ -1,5 +1,5 @@
 /**
- * Test Case 1
+ * Use Case 1
  *
  * Steps:
  *  1. Failed Registration
@@ -19,7 +19,7 @@ async function runCase(options = {}) {
   let headers;
   const ms = options.delay || 100; // time in ms to wait after each request
 
-  console.log('Running Test Case 1');
+  console.log('Running Use Case 1');
 
   // Step 1: Failed Registration
   await api.post('/users', {})

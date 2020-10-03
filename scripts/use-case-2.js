@@ -1,5 +1,5 @@
 /**
- * Test Case 2
+ * Use Case 2
  *
  * Steps:
  *  1. Failed Login
@@ -19,7 +19,7 @@ async function runCase(options = {}) {
   let headers;
   const ms = options.delay || 100; // time in ms to wait after each request
 
-  console.log('Running Test Case 2');
+  console.log('Running Use Case 2');
 
   // Step 1: Failed Login
   data = { email: 'arya.stark@nobody.org', pass: 'braavos' };

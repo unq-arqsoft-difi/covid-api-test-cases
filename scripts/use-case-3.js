@@ -1,5 +1,5 @@
 /**
- * Test Case 3
+ * Use Case 3
  *
  * Steps:
  *  1. Registration
@@ -18,7 +18,7 @@ async function runCase(options = {}) {
   let headers;
   const ms = options.delay || 100; // time in ms to wait after each request
 
-  console.log('Running Test Case 3');
+  console.log('Running Use Case 3');
 
   // Step 1: Registration
   data = {

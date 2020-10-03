@@ -1,4 +1,4 @@
-# API Test Cases
+# API Use Cases
 
 ## TP » Insumos Médicos » UNQ » ArqSoft
 
@@ -9,8 +9,8 @@
 ### Clone
 
 ```bash
-git clone https://github.com/unq-arqsoft-difi/covid-api-test-cases.git
-cd covid-api-test-cases
+git clone https://github.com/unq-arqsoft-difi/covid-api-use-cases.git
+cd covid-api-use-cases
 npm install
 cp .env.example .env
 ```
@@ -19,9 +19,9 @@ Modificar los valores en el archivo `.env` según corresponda.
 
 ### Run
 
-Es necesario levantar los containers de docker antes de correr los tests.
-Además, como hay tests que generan información persistente, hay que
-reiniciar los containers antes de volver a correr los tests.
+Es necesario levantar los containers de docker antes de correr los scripts.
+Además, como hay scripts que generan información persistente, hay que
+reiniciar los containers antes de volver a correr los scripts.
 
 #### Consola 1
 
