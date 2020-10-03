@@ -1,7 +1,7 @@
 {
-  "name": "covid-api-test-cases",
+  "name": "covid-api-use-cases",
   "version": "1.0.0",
-  "description": "Test Cases de API",
+  "description": "API Use Cases",
   "contributors": [
     "Julián Fischetti <jfischetti94@gmail.com>",
     "Leandro Di Lorenzo <leandro.jdl@gmail.com>"
@@ -12,7 +12,8 @@
   },
   "scripts": {
     "test": "jest",
-    "lint": "eslint --ext .js scripts/ lib/ test/"
+    "cases": "./run-cases.sh",
+    "lint": "eslint --ext .js scripts/ lib/"
   },
   "husky": {
     "hooks": {
@@ -20,25 +21,17 @@
     }
   },
   "dependencies": {
-    "@jest/test-sequencer": "^26.4.2",
     "axios": "^0.20.0",
-    "babel-eslint": "^10.1.0",
     "dotenv": "^8.2.0",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jest": "^24.0.2",
     "husky": "^4.3.0",
-    "jest": "^26.4.2",
-    "jest-extended": "^0.11.5",
     "minimist": "^1.2.5",
     "winston-ready": "^2.0.1"
   },
-  "jest": {
-    "testEnvironment": "node",
-    "testSequencer": "./test/testSequencer.js"
-  },
   "devDependencies": {
     "@types/jest": "^26.0.14",
+    "babel-eslint": "^10.1.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
     "eslint": "^7.9.0"
   }
 }
