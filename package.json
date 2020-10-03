@@ -12,7 +12,7 @@
   },
   "scripts": {
     "test": "jest",
-    "cases": "./run-cases.sh",
+    "cases": "bash ./run-cases.sh",
     "lint": "eslint --ext .js scripts/ lib/"
   },
   "husky": {

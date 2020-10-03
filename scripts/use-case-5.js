@@ -22,7 +22,7 @@ async function runCase(options = {}) {
   let headers;
   const ms = options.delay || 100; // time in ms to wait after each request
 
-  console.log('Running Test Case 4');
+  console.log('Running Test Case 5');
 
   // Step 1: Registration
   data = {
