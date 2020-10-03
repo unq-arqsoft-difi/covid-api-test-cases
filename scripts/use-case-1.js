@@ -9,6 +9,7 @@
  *  5. Create Request Supply
  */
 
+const argv = require('minimist')(process.argv.slice(2));
 const api = require('../lib/api');
 const { logStep, sleep } = require('./support');
 
@@ -69,4 +70,4 @@ async function runCase(options = {}) {
   await sleep(ms);
 }
 
-runCase();
+runCase({ delay: argv.delay });
