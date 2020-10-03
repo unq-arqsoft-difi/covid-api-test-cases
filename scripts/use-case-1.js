@@ -12,10 +12,10 @@
 const api = require('../lib/api');
 const { logStep, sleep } = require('./support');
 
-async function runCase({ delay }) {
+async function runCase(options = {}) {
   let data;
   let headers;
-  const ms = delay || 100; // time in ms to wait after each request
+  const ms = options.delay || 100; // time in ms to wait after each request
 
   console.log('Running Test Case 1');
 
