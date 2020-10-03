@@ -15,8 +15,11 @@ const { logStep, sleep } = require('./support');
 
 async function runCase(options = {}) {
   let data;
+  let token;
   let headers;
   const ms = options.delay || 100; // time in ms to wait after each request
+
+  console.log('Running Test Case 2');
 
   // Step 1: Failed Login
   data = { email: 'arya.stark@nobody.org', pass: 'braavos' };
@@ -43,7 +46,6 @@ async function runCase(options = {}) {
   await sleep(ms);
 
   // Step 3: Login OK & Get Token
-  let token;
   data = { email: 'arya.stark@nobody.org', pass: 'braavos' };
   await api.post('/session', data)
     .then((response) => {

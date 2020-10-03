@@ -15,6 +15,7 @@ const { logStep, sleep } = require('./support');
 
 async function runCase(options = {}) {
   let data;
+  let token;
   let headers;
   const ms = options.delay || 100; // time in ms to wait after each request
 
@@ -44,7 +45,6 @@ async function runCase(options = {}) {
   await sleep(ms);
 
   // Step 3: Login & Get Token
-  let token;
   data = { email: 'jon.snow@winterfell.com', pass: '1234' };
   await api.post('/session', data)
     .then((response) => {
