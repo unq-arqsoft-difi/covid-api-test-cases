@@ -1,0 +1,21 @@
+global:
+  scrape_interval:     90s # Set the scrape interval to every 90 seconds. Default is every 1 minute.
+  evaluation_interval: 90s # Evaluate rules every 90 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+    monitor: 'api'
+
+rule_files:
+
+
+scrape_configs:
+  # Use DNS Service discovery
+  ## https://github.com/teamzerolabs/api-express-exporter
+  - job_name: api
+    dns_sd_configs:
+      - { names: [ api ], type: A, port: 9991 }
+    metrics_path: /metrics
+
