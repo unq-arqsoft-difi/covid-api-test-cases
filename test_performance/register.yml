@@ -1,5 +1,5 @@
 config:
-  target: "http://localhost:9004"
+  target: "http://localhost:9001"
   http:
     timeout: 60
   phases:
@@ -15,7 +15,7 @@ config:
       name: Sustained load
   environments:
     dev:
-      target: "http://localhost:9004"
+      target: "http://localhost:9001"
       phases:
         - duration: 60
           arrivalRate: 5
