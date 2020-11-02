@@ -110,3 +110,21 @@ Se pueden correr todos los scripts mediante el comando
 ```bash
 npm run cases
 ```
+
+### Performance Tests
+
+Correr los tests de performance (previamente levantar el docker-compose)
+
+#### Support Test
+
+```sh
+cd test-performance
+npx artillery run -e dev register.yml
+```
+
+#### Register Test
+
+```sh
+cd test-performance
+npx artillery run -e dev register.yml
+```
