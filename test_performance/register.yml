@@ -1,0 +1,46 @@
+config:
+  target: "http://localhost:9004"
+  http:
+    timeout: 60
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      bame: Warm up
+    - duration: 120
+      arrivalRate: 5
+      rampTo: 50
+      name: Ramp up load
+    - duration: 600
+      arrivalRate: 50
+      name: Sustained load
+  environments:
+    dev:
+      target: "http://localhost:9004"
+      phases:
+        - duration: 60
+          arrivalRate: 5
+          bame: Warm up
+
+    skipHeader: true
+  processor: "./utils.js"
+scenarios:
+  - name: "Register user"
+    flow:
+      - function: "generateRandomData"
+      - post:
+          url: "/users"
+          json:
+            email: "{{ email }}"
+            pass: "{{ pass }}"
+            firstName: "pepe"
+            lastName: "apellido"
+            phone: "123456"
+            job: 1
+            institutionId: "10140142331292"
+            provinceId: "06" # Buenos aires
+            townId: "06840010009"
+          afterResponse: "printErrorStatus"
+        expect:
+          - statusCode: 201
+          - contentType: json
+          - hasProperty: "created"
