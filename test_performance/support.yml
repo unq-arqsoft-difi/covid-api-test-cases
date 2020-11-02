@@ -1,0 +1,21 @@
+config:
+  target: "http://localhost:9004"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      bame: Warm up
+    # Los phases de abajo serian los de carga posta. Los dejo comentados hasta que tengamos bien los escenarios.
+    # - duration: 120
+    #   arrivalRate: 5
+    #   rampTo: 50
+    #   name: Ramp up load
+    # - duration: 600
+    #   arrivalRate: 50
+    #   name: Sustained load
+scenarios:
+  - name: "Get support resources"
+    flow:
+      - get:
+          url: "/support/areas"
+      - get:
+          url: "/support/institutions"
