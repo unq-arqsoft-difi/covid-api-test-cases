@@ -18,4 +18,7 @@ scrape_configs:
     dns_sd_configs:
       - { names: [ api ], type: A, port: 9991 }
     metrics_path: /metrics
-
+  - job_name: node-exporter
+    dns_sd_configs:
+      - { names: [ node-exporter ], type: A, port: 9100 }
+    metrics_path: /metrics

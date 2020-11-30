@@ -50,6 +50,11 @@ services:
       - '3000:3000/tcp'
     volumes:
       - grafana-data:/var/lib/grafana
+  
+  node-exporter:
+    image: prom/node-exporter
+    ports:
+      - '9100:9100'
 
 volumes:
   prometheus-data:
