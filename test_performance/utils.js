@@ -1,5 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const Faker = require('faker');
+const Faker = require("faker");
+const api = require("../lib/api");
+
+/* Private */
+function randomIndex(length) {
+  return Math.floor(Math.random() * length);
+}
+
+/* Public */
 
 function printErrorStatus(requestParams, response, context, ee, next) {
   if (response.statusCode === 400) {
@@ -23,7 +31,31 @@ function generateRandomData(userContext, events, done) {
   return done();
 }
 
+async function fetchRegisterData(userContext, events, done) {
+  const area = api.get("/support/areas").then((res) => {
+    userContext.vars.areaId = res.data[randomIndex(res.data.length)].id;
+  });
+  const institution = api.get("/support/institutions").then((res) => {
+    userContext.vars.institutionId = res.data[randomIndex(res.data.length)].id;
+  });
+  const province = api.get("/support/provinces").then((res) => {
+    userContext.vars.provinceId = res.data[randomIndex(res.data.length)].id;
+  });
+
+  return Promise.all([area, institution, province])
+    .then(() => {
+      api
+        .get(`/support/provinces/${userContext.vars.provinceId}?include=towns`)
+        .then((res) => {
+          userContext.vars.townId = res.data.towns[0].id;
+          done();
+        });
+    })
+    .catch((error) => console.error(error));
+}
+
 module.exports = {
-  printErrorStatus,
+  fetchRegisterData,
   generateRandomData,
+  printErrorStatus,
 };
