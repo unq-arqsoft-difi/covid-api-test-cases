@@ -42,16 +42,12 @@ async function fetchRegisterData(userContext, events, done) {
     userContext.vars.provinceId = res.data[randomIndex(res.data.length)].id;
   });
 
-  return Promise.all([area, institution, province])
-    .then(() => {
-      api
-        .get(`/support/provinces/${userContext.vars.provinceId}?include=towns`)
-        .then((res) => {
-          userContext.vars.townId = res.data.towns[0].id;
-          done();
-        });
-    })
-    .catch((error) => console.error(error));
+  await Promise.all([area, institution, province]);
+  const response = await api.get(
+    `/support/provinces/${userContext.vars.provinceId}?include=towns`
+  );
+  userContext.vars.townId = response.data.towns[0].id;
+  done();
 }
 
 module.exports = {
