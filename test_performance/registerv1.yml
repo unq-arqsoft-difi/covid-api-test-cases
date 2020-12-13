@@ -8,17 +8,18 @@ config:
       name: Warm up
     - duration: 120
       arrivalRate: 5
-      rampTo: 25
+      rampTo: 50
       name: Ramp up load
-    - duration: 420
-      arrivalRate: 25
+    - duration: 220
+      arrivalRate: 50
+      rampTo: 75
       name: Sustained load
-    - duration: 420
-      arrivalRate: 30
+    - duration: 120
+      arrivalRate: 70
       name: Heavy
-    - duration: 420
+    - duration: 170
       arrivalRate: 25
-      rampTo: 30
+      rampTo: 50
       name: Crash
   environments:
     dev:
