@@ -17,41 +17,58 @@ function printErrorStatus(requestParams, response, context, ee, next) {
   return next();
 }
 
+function saveToken(requestParams, response, context, ee, next) {
+  if (response.statusCode === 200) {
+    const token = response.body.token;
+    context.vars.token = token;
+  }
+  return next();
+}
+
 /* eslint-disable no-param-reassign */
-function generateRandomData(userContext, events, done) {
+function generateRandomData(context, events, done) {
   // generate data with Faker:
   const name = `${Faker.name.firstName()} ${Faker.name.lastName()}`;
   const email = Faker.internet.exampleEmail();
   const pass = Faker.internet.password();
   // add variables to virtual user's context:
-  userContext.vars.name = name;
-  userContext.vars.email = email;
-  userContext.vars.pass = pass;
+  context.vars.name = name;
+  context.vars.email = email;
+  context.vars.pass = pass;
   // continue with executing the scenario:
   return done();
 }
 
-async function fetchRegisterData(userContext, events, done) {
+async function fetchRegisterData(context, events, done) {
   const area = api.get("/support/areas").then((res) => {
-    userContext.vars.areaId = res.data[randomIndex(res.data.length)].id;
+    context.vars.areaId = res.data[randomIndex(res.data.length)].id;
   });
   const institution = api.get("/support/institutions").then((res) => {
-    userContext.vars.institutionId = res.data[randomIndex(res.data.length)].id;
+    context.vars.institutionId = res.data[randomIndex(res.data.length)].id;
   });
   const province = api.get("/support/provinces").then((res) => {
-    userContext.vars.provinceId = res.data[randomIndex(res.data.length)].id;
+    context.vars.provinceId = res.data[randomIndex(res.data.length)].id;
   });
 
   await Promise.all([area, institution, province]);
   const response = await api.get(
-    `/support/provinces/${userContext.vars.provinceId}?include=towns`
+    `/support/provinces/${context.vars.provinceId}?include=towns`
   );
-  userContext.vars.townId = response.data.towns[0].id;
+  context.vars.townId = response.data.towns[0].id;
+  done();
+}
+
+async function fetchSupplyId(context, events, done) {
+  await api.get("/support/supplies").then((res) => {
+    context.vars.supplyId = res.data[randomIndex(res.data.length)].id;
+  });
   done();
 }
 
 module.exports = {
+  fetchSupplyId,
   fetchRegisterData,
   generateRandomData,
   printErrorStatus,
+  saveToken,
 };
