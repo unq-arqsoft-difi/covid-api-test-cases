@@ -1,7 +1,7 @@
 config:
   target: "http://localhost:9001"
   http:
-    timeout: 60
+    timeout: 600
   phases:
     - duration: 60
       arrivalRate: 2

@@ -14,6 +14,11 @@ services:
       DATABASE_URL: "postgres://covid:54321@db:5432/covid"
     volumes:
       - ./logs/:/opt/app/logs/
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2048M
     depends_on:
       - db
       - recreate
@@ -35,6 +40,11 @@ services:
     restart: unless-stopped
     volumes:
       - ./db/data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2048M
   
   prometheus:
     image: prom/prometheus:v2.19.1
