@@ -66,3 +66,14 @@ scenarios:
             supplyId: "{{supplyId}}"
             amount: 99
           afterResponse: "printErrorStatus"
+      - post:
+          url: "/session"
+          json:
+            email: "admin@difi.com"
+            pass: "difi"
+          afterResponse: "saveToken"
+      - get:
+          url: "/request-supplies?status=Pending"
+          headers:
+            Authorization: "Bearer {{ token }}"
+          afterResponse: "printErrorStatus"
