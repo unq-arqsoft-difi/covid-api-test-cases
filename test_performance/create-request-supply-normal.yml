@@ -1,0 +1,73 @@
+config:
+  target: "http://localhost:9001"
+  http:
+    timeout: 600
+  phases:
+    - duration: 60
+      arrivalRate: 2
+    - duration: 120
+      arrivalRate: 2
+      rampTo: 5
+    - duration: 420
+      arrivalRate: 2
+    - duration: 420
+      arrivalRate: 3
+    - duration: 420
+      arrivalRate: 1
+  environments:
+    dev:
+      target: "http://localhost:9001"
+    skipHeader: true
+  processor: "./utils.js"
+scenarios:
+  - name: "Register user"
+    flow:
+      - function: "generateRandomData"
+      - function: "fetchRegisterData"
+      - function: "fetchSupplyId"
+      - think: 5
+      - post:
+          url: "/users"
+          json:
+            email: "{{ email }}"
+            pass: "{{ pass }}"
+            firstName: "pepe"
+            lastName: "apellido"
+            phone: "123456"
+            job: areaId
+            institutionId: "{{ institutionId }}"
+            provinceId: "{{ provinceId }}" # Buenos aires
+            townId: "{{ townId }}"
+          afterResponse: "printErrorStatus"
+        expect:
+          - statusCode: 201
+          - contentType: json
+          - hasProperty: "created"
+      - think: 2
+      - post:
+          url: "/session"
+          json:
+            email: "{{ email }}"
+            pass: "{{ pass }}"
+          afterResponse: "saveToken"
+      - think: 3
+      - post:
+          url: "/request-supplies"
+          headers:
+            Authorization: "Bearer {{ token }}"
+          json:
+            areaId: "{{areaId}}"
+            supplyId: "{{supplyId}}"
+            amount: 99
+          afterResponse: "printErrorStatus"
+      - post:
+          url: "/session"
+          json:
+            email: "admin@difi.com"
+            pass: "difi"
+          afterResponse: "saveToken"
+      - get:
+          url: "/request-supplies?status=Pending"
+          headers:
+            Authorization: "Bearer {{ token }}"
+          afterResponse: "printErrorStatus"
